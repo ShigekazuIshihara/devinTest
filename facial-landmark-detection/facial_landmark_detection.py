@@ -43,7 +43,7 @@ def calculate_perclos(eye_opening, iris_diameter):
     if iris_diameter == 0:  # Avoid division by zero
         return 0
     
-    percentage = (eye_opening / iris_diameter) * 100
+    percentage = (eye_opening / iris_diameter) * 100 - 90 # This minus CONSTANT parameter is depends on the subject.
     return percentage
 
 def is_eye_closed(perclos_value, threshold=20):
@@ -103,17 +103,17 @@ def process_image(image_path):
                 left_eye_closed = is_eye_closed(left_perclos)
                 right_eye_closed = is_eye_closed(right_perclos)
                 
-                cv2.putText(image, f"Left Eye PERCLOS: {left_perclos:.2f}%", (10, 30), 
+                cv2.putText(image, f"LEFT Eye PERCLOS: {left_perclos:.2f}%", (10, 30),  
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-                cv2.putText(image, f"Right Eye PERCLOS: {right_perclos:.2f}%", (10, 60), 
+                cv2.putText(image, f"RIGHT Eye PERCLOS: {right_perclos:.2f}%", (10, 60), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
                 
                 if left_eye_closed:
-                    cv2.putText(image, "Left Eye Closed", (10, 90), 
+                    cv2.putText(image, "LEFT Eye Closed", (10, 90),  
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                 
                 if right_eye_closed:
-                    cv2.putText(image, "Right Eye Closed", (10, 120), 
+                    cv2.putText(image, "RIGHT Eye Closed", (10, 120), 
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         
         output_path = f"processed_{os.path.basename(image_path)}"
@@ -199,17 +199,17 @@ def process_webcam():
                     left_eye_closed = is_eye_closed(avg_left_perclos)
                     right_eye_closed = is_eye_closed(avg_right_perclos)
                     
-                    cv2.putText(image, f"Left Eye PERCLOS: {avg_left_perclos:.2f}%", (10, 30), 
+                    cv2.putText(image, f"left Eye PERCLOS: {avg_left_perclos:.2f}%", (10, 30), 
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
-                    cv2.putText(image, f"Right Eye PERCLOS: {avg_right_perclos:.2f}%", (10, 60), 
+                    cv2.putText(image, f"right Eye PERCLOS: {avg_right_perclos:.2f}%", (10, 60), 
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
                     
                     if left_eye_closed:
-                        cv2.putText(image, "Left Eye Closed", (10, 90), 
+                        cv2.putText(image, "left Eye Closed", (10, 90),  
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                     
                     if right_eye_closed:
-                        cv2.putText(image, "Right Eye Closed", (10, 120), 
+                        cv2.putText(image, "right Eye Closed", (10, 120), 
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                     
                     h, w, _ = image.shape
